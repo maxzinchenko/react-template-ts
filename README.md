@@ -22,8 +22,8 @@ $ yarn start:prod
 # build to /dist folder
 $ yarn build
 
-# build to /dist folder and run the built app
-$ yarn build:start
+# build to /dist folder and run the built app than
+$ yarn build:n:start
 ```
 
 ## Checking for the code style exceptions
