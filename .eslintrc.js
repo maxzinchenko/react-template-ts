@@ -51,6 +51,7 @@ module.exports = {
   rules: {
     // TS
     '@typescript-eslint/explicit-module-boundary-types': ERROR,
+    '@typescript-eslint/comma-dangle': OFF,
 
     // Best Practices
     'no-await-in-loop': OFF,
