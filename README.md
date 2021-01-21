@@ -1,4 +1,4 @@
-# React boilerplate TS
+# React.js template on TS
 
 ## Packages installation
 
