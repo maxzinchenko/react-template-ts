@@ -2,16 +2,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
-    alias: {
-      '@Modules': path.resolve(__dirname, '..', 'src', 'modules'),
-      '@Components': path.resolve(__dirname, '..', 'src', 'components'),
-      '@Hooks': path.resolve(__dirname, '..', 'src', 'hooks'),
-      '@Services': path.resolve(__dirname, '..', 'src', 'services')
-    }
+    extensions: ['.ts', '.tsx', '.js']
   },
   module: {
     rules: [{
@@ -24,7 +20,7 @@ module.exports = {
       use: ['style-loader', 'css-loader']
     }, {
       test: /\.scss$/,
-      use: ['style-loader', 'css-loader', 'sass-loader']
+      use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader', 'sass-loader']
     }, {
       test: /\.(png|jp(e*)g)$/,
       use: {
@@ -34,14 +30,11 @@ module.exports = {
         }
       }
     }, {
-      test: /favicon\.(svg|png)$/,
+      test: /\.ico$/,
       loader: 'file-loader',
       options: {
         name: '[path][name].[ext]'
       }
-    }, {
-      test: /\.(ttf|eot|gif)(\?v=\d\.\d\.\d)?$/,
-      use: ['file-loader']
     }, {
       test: /\.woff(2)?(\?v=\d\.\d\.\d)?$/,
       use: {
@@ -62,12 +55,16 @@ module.exports = {
       hash: true,
       template: path.resolve(__dirname, '..', 'index.html'),
       minify: {
-        collapseWhitespace: true,
         removeComments: true,
+        collapseWhitespace: true,
         removeRedundantAttributes: true,
-        removeScriptTypeAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
         removeStyleLinkTypeAttributes: true,
-        useShortDoctype: true
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true
       }
     }),
     new Dotenv({
